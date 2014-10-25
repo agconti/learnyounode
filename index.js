@@ -1,20 +1,18 @@
 // require the file system module
-var fs = require('fs');
-var path = require('path');
+var df = require('./dirFilter');
 var filePath = process.argv[2];
 var fileExt = process.argv[3];
 
-// get the file
-fs.readdir(filePath, function (err, list) {
+// call directory filter
+df(filePath, fileExt, function (err, list) {
 
+    if (err){
+        console.error("Woah: ", err);
+    }
+    
     list.forEach(function(file){
-
-        // check file extension
-        if (path.extname(file) === "." + fileExt) {
-            console.log(file);
-        }
-
+        console.log(file);
     });
-
 });
+
 
