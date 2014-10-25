@@ -1,15 +1,11 @@
-// starts at two because we expect this program to always be
-// run from the commandline in the format:
-//
-// `node programName.js [arguments]`
-//
-// therefore the first two items in process.argv can safely be skipped.
+// require the file system module
+var fs = require('fs');
 
-var i = 2, 
-    argLength = process.argv.length,
-    sum = 0;
+// get the file
+var buffer = fs.readFileSync(process.argv[2]);
 
-for(; i<argLength; i++){
-    sum += +process.argv[i];
-}
-console.log(sum);
+// get number of new lines. 
+// ( there is no new line at the end of the list, so -1) 
+var numNewLines = buffer.toString().split("\n").length - 1;
+
+console.log(numNewLines);
