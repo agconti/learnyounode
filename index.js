@@ -1,14 +1,20 @@
 // require the file system module
 var fs = require('fs');
+var path = require('path');
+var filePath = process.argv[2];
+var fileExt = process.argv[3];
 
 // get the file
-fs.readFile(process.argv[2], 'utf-8', function (err, data) {
-    
-    // get number of new lines. 
-    // ( there is no new line at the end of the list, so -1) 
-    var numNewLines = data.split("\n").length - 1;
+fs.readdir(filePath, function (err, list) {
 
-    // return answer to console
-    console.log(numNewLines); 
+    list.forEach(function(file){
+
+        // check file extension
+        if (path.extname(file) === "." + fileExt) {
+            console.log(file);
+        }
+
+    });
+
 });
 
