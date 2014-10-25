@@ -2,10 +2,13 @@
 var fs = require('fs');
 
 // get the file
-var buffer = fs.readFileSync(process.argv[2]);
+fs.readFile(process.argv[2], 'utf-8', function (err, data) {
+    
+    // get number of new lines. 
+    // ( there is no new line at the end of the list, so -1) 
+    var numNewLines = data.split("\n").length - 1;
 
-// get number of new lines. 
-// ( there is no new line at the end of the list, so -1) 
-var numNewLines = buffer.toString().split("\n").length - 1;
+    // return answer to console
+    console.log(numNewLines); 
+});
 
-console.log(numNewLines);
