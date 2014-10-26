@@ -1,18 +1,19 @@
 // require the file system module
-var df = require('./dirFilter');
-var filePath = process.argv[2];
-var fileExt = process.argv[3];
+var http = require('http')
+var url = process.argv[2]
 
-// call directory filter
-df(filePath, fileExt, function (err, list) {
-
-    if (err){
-        console.error("Woah: ", err);
-    }
+function callback(response){
     
-    list.forEach(function(file){
-        console.log(file);
-    });
-});
+    // set response to string instead of buffer
+    response.setEncoding('utf8')
 
+    // data:event
+    response.on('data', function(chunk){
+        console.log(chunk)
+    })
 
+    // log errors to the console
+    response.on('error', console.error)
+}
+
+http.get(url, callback)
