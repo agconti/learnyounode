@@ -1,24 +1,14 @@
 ;(function(){
+  var http = require('http')
+    , fs = require('fs')
 
-var net = require('net')
-  , port = process.argv[2]
-  , server 
+  http.createServer(function (req, res) {
 
-// user strftime once you get internet
-function getDate(){
-    var date = new Date()
-    return [ date.getFullYear() + '-'
-           , ( date.getMonth() + 1 ) + '-'  
-           , date.getDate() + ' ' 
-           , date.getHours() + ":"
-           , date.getMinutes()
-           ].join("")
-}
-
-var server = net.createServer(function (socket) {
-  // socket handling logic
-  socket.end(getDate())
-})
-server.listen(port)
-
+    // respond with a status + content type
+    res.writeHead(200, { 'content-type': 'text/plain' })
+    
+    // read the file and pipe the response to the client
+    fs.createReadStream(process.argv[3]).pipe(res)
+  }).listen(process.argv[2])
+  
 })()
