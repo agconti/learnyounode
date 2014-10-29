@@ -24,15 +24,16 @@
       
       case '/api/unixtime':
         res.writeHead(200, { 'Content-Type': 'application/json' })
+
          var date = new Date(parms.query.iso)
           , jsonResponse = {"unixtime": date.getTime()}
+
         res.end(JSON.stringify(jsonResponse))
         break
 
       default:
         res.writeHead(404, { 'Content-Type': 'application/text' })
         res.end("Not Found")
-        
     }
 
   }).listen(Number(process.argv[2]))
